@@ -16,22 +16,34 @@ $(document).ready(function() {
   var firstChoice;
   var secondChoice;
   var count = 0;
+  var matchArray = [];
+
+  document.addEventListener("click", matchArray.forEach(function(name){
+    console.log(name);
+    $("input[name=" + name + "]").prop('disabled', true);
+    $("input[name=" + name + "]").prop('checked', true);
+  }));
 
   $('input[type=checkbox]').click(function(){
     if (count === 0) {
       firstChoice = $(this).val();
+      $(this).prop('disabled', true);
       count += 1;
     } else if (count === 1) {
       secondChoice = $(this).val();
+      $(this).prop('disabled', true);
       count += 1;
     }
 
     if (count === 2) {
       if (cardMatch(firstChoice, secondChoice) === true) {
         count = 0;
+        matchArray.push(firstChoice);
         //do nothing
+        console.log(matchArray);
       } else if (cardMatch(firstChoice, secondChoice) === false) {
         $("input[type=checkbox]").prop('checked', false);
+        $("input[type=checkbox]").prop('disabled', false);
         count = 0;
       }
     }
